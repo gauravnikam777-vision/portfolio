@@ -1,0 +1,12 @@
+{
+  "name": "Gaurav Nikam — Data Analyst",
+  "short_name": "Gaurav Nikam",
+  "description": "Portfolio of Gaurav Nikam, Data Analyst | SQL | Python | Power BI",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0e14",
+  "theme_color": "#ffa500",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

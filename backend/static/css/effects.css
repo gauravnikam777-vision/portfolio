@@ -1,0 +1,222 @@
+/* =========================================================
+   ADVANCED EFFECTS — PortX + Eric Wadkins Inspired
+   Portfolio Effects Layer
+   ========================================================= */
+
+/* ---------- Custom Magnetic Cursor ---------- */
+body.has-cursor * { cursor: none !important; }
+
+#cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+#cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width 0.35s cubic-bezier(0.25,0.8,0.25,1),
+              height 0.35s cubic-bezier(0.25,0.8,0.25,1),
+              border-color 0.2s ease,
+              opacity 0.2s ease;
+  opacity: 0.45;
+  will-change: transform;
+}
+#cursor-dot.hovering { width: 14px; height: 14px; opacity: 1; }
+#cursor-ring.hovering { width: 56px; height: 56px; border-color: var(--accent); opacity: 0.85; }
+#cursor-ring.clicking { transform: translate(-50%,-50%) scale(0.85); }
+
+/* ---------- Hero-Specific Background Media ---------- */
+.hero-bg-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-bg-media img,
+.hero-bg-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  will-change: transform;
+  transition: opacity 0.6s ease;
+  position: absolute;
+  inset: 0;
+}
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  /* Lightened overlay — image stays clearly visible at admin-set opacity */
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 8, 22, 0.25) 0%,
+    rgba(5, 8, 22, 0.15) 40%,
+    rgba(5, 8, 22, 0.30) 100%
+  );
+  z-index: 1;
+}
+[data-theme*='-light'] .hero-bg-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(248, 250, 252, 0.25) 0%,
+    rgba(248, 250, 252, 0.15) 40%,
+    rgba(248, 250, 252, 0.30) 100%
+  );
+}
+
+/* ---------- Particle Trail Canvas ---------- */
+#particle-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.55;
+}
+
+/* ---------- Floating Gradient Orbs ---------- */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 1.2s ease;
+  mix-blend-mode: screen;
+  contain: layout style paint;
+  will-change: transform;
+}
+.orb.visible { opacity: 0.10; }
+.orb-1 {
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  top: -200px; left: -120px;
+}
+.orb-2 {
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+  top: 20%; right: -150px;
+}
+.orb-3 {
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+  bottom: -120px; left: 20%;
+}
+/* Orb motion is handled by JS mouse parallax in initGradientOrbs() */
+
+/* ---------- Magnetic Card Glow Enhancement ---------- */
+.project-card.tilt-card:hover,
+.card.glass.tilt-card:hover,
+.skill-cat.tilt-card:hover {
+  box-shadow:
+    0 0 0 1px var(--accent),
+    0 20px 50px rgba(0,0,0,0.3),
+    0 0 35px rgba(0,206,168,0.15);
+}
+
+/* ---------- Glowing Section Eyebrow ---------- */
+.section-eyebrow {
+  position: relative;
+  padding-left: 0.85rem;
+}
+.section-eyebrow::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 80%;
+  background: var(--accent);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+/* ---------- Stats Row Gradient Numbers ---------- */
+.stats-row .stat-value {
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---------- Section Entrance Animation Enhancement ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible, .reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Certification Card Hover Glow ---------- */
+.cert-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent) !important;
+  box-shadow: 0 8px 30px rgba(0,206,168, 0.12);
+}
+
+/* ---------- Footer Compact Bar ---------- */
+footer, #site-footer {
+  border-top: 1px solid var(--border);
+  background: var(--bg-elevated);
+  padding: 0;
+}
+.footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 54px;
+  flex-wrap: wrap;
+}
+.footer-brand {
+  font-weight: 800;
+  font-size: 0.95rem;
+  display: flex;
+  gap: 0.3rem;
+  white-space: nowrap;
+  align-items: center;
+}
+.footer-brand .accent { color: var(--accent); }
+.footer-copy {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 0;
+  text-align: center;
+  flex: 1;
+}
+@media (max-width: 600px) {
+  .footer-bar {
+    min-height: auto;
+    padding: 0.85rem 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .footer-copy { display: none; }
+}
+
+/* ---------- Touch device: hide custom cursor ---------- */
+@media (hover: none) {
+  #cursor-dot, #cursor-ring { display: none !important; }
+  body.has-cursor * { cursor: auto !important; }
+}

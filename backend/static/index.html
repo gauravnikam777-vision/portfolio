@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaurav Nikam — Data Analyst | AI/ML Engineer</title>
+  <meta name="description" content="Gaurav Nikam — Data Analyst skilled in SQL, Python, Power BI, Tableau, and Machine Learning. Explore projects in sales forecasting, churn prediction, and risk modeling.">
+  <meta name="keywords" content="Data Analyst, Python, SQL, Power BI, Tableau, Machine Learning, Gaurav Nikam, Pune">
+  <meta name="author" content="Gaurav Nikam">
+  <meta name="theme-color" content="#0b0e14">
+  <meta name="api-base" content="%%API_BASE_URL%%">
+  <link rel="canonical" href="https://gauravnikam.dev/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Gaurav Nikam — Data Analyst | AI/ML Engineer">
+  <meta property="og:description" content="Data Analyst skilled in SQL, Python, Power BI, Tableau, and Machine Learning.">
+  <meta property="og:image" content="https://gauravnikam.dev/images/og-cover.png">
+  <meta property="og:url" content="https://gauravnikam.dev/">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Gaurav Nikam — Data Analyst | AI/ML Engineer">
+  <meta name="twitter:description" content="Data Analyst skilled in SQL, Python, Power BI, Tableau, and Machine Learning.">
+
+  <!-- Icons / PWA -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/style.css?v=3.1">
+  <link rel="stylesheet" href="/css/effects.css?v=3.1">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Gaurav Nikam",
+    "jobTitle": "Data Analyst",
+    "email": "mailto:gauravnikam072@gmail.com",
+    "url": "/",
+    "sameAs": [
+      "https://github.com/gauravnikam777-vision",
+      "https://www.linkedin.com/in/gaurav-nikam-44842a345"
+    ],
+    "address": { "@type": "PostalAddress", "addressLocality": "Pune", "addressRegion": "Maharashtra", "addressCountry": "IN" }
+  }
+  </script>
+</head>
+<body>
+  <!-- Custom cursor -->
+  <div id="cursor-dot" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+
+  <canvas id="starfield-canvas" aria-hidden="true"></canvas>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="scroll-progress" aria-hidden="true"></div>
+  <div class="bg-decor" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div id="toast-stack" role="status" aria-live="polite"></div>
+
+  <!-- ============ NAV ============ -->
+  <nav>
+    <div class="nav-container">
+      <div class="nav-brand"><span>Gaurav</span><span class="accent">Nikam</span></div>
+
+      <ul class="nav-links">
+        <li id="nav-about"><a href="#about">About</a></li>
+        <li id="nav-projects"><a href="#projects">Projects</a></li>
+        <li id="nav-skills"><a href="#skills">Skills</a></li>
+        <li id="nav-experience"><a href="#work">Experience</a></li>
+        <li id="nav-education"><a href="#education">Education</a></li>
+        <li id="nav-certifications"><a href="#certifications">Certifications</a></li>
+        <li id="nav-testimonials"><a href="#testimonials">Endorsements</a></li>
+        <li id="nav-blog"><a href="#blog">Blog</a></li>
+        <li id="nav-contact"><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme" title="Switch theme">☾ THEME</button>
+        <a href="/api/resume" class="btn btn-secondary" style="padding:0.5rem 1rem; font-size:0.82rem;">⬇ Resume</a>
+        <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div id="drawer-overlay" class="drawer-overlay"></div>
+  <aside id="mobile-drawer" class="mobile-drawer" aria-label="Mobile navigation">
+    <a id="drawer-about" href="#about">About</a>
+    <a id="drawer-projects" href="#projects">Projects</a>
+    <a id="drawer-skills" href="#skills">Skills</a>
+    <a id="drawer-experience" href="#work">Experience</a>
+    <a id="drawer-education" href="#education">Education</a>
+    <a id="drawer-certifications" href="#certifications">Certifications</a>
+    <a id="drawer-testimonials" href="#testimonials">Endorsements</a>
+    <a id="drawer-blog" href="#blog">Blog</a>
+    <a id="drawer-contact" href="#contact">Contact</a>
+  </aside>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section id="hero" class="hero">
+      <!-- Background media limited only to the hero section -->
+      <div id="hero-bg-media" class="hero-bg-media" aria-hidden="true">
+        <div class="hero-bg-overlay"></div>
+      </div>
+      <div class="hero-grid container">
+        <div class="hero-copy">
+          <div class="status-badge"><span class="dot"></span> <span id="hero-status-text">Open to Data Analyst opportunities</span></div>
+          <h1><span id="hero-tagline">Turning raw data into </span><span class="gradient-text" id="typewriter-text">decisions that matter</span></h1>
+          <p class="subtitle" id="hero-bio">
+            Aspiring Data Analyst and MCA student with hands-on experience in SQL, Python, Power BI,
+            Tableau, and machine learning — building end-to-end analytics that drive real business outcomes.
+          </p>
+          <div class="cta-row">
+            <a href="#about" class="btn btn-primary">View My Work →</a>
+            <a href="#contact" class="btn btn-secondary">Let's Talk</a>
+          </div>
+          <div class="stats-row">
+            <div><div class="stat-value" data-target="4" data-suffix="+">0+</div><div class="stat-label">Projects</div></div>
+            <div><div class="stat-value" data-target="100" data-suffix="K+">0K+</div><div class="stat-label">Records Analyzed</div></div>
+            <div><div class="stat-value" data-target="4" data-suffix="">0</div><div class="stat-label">Certifications</div></div>
+            <div><div class="stat-value" data-target="9.22" data-suffix="" data-decimals="2">0</div><div class="stat-label">CGPA</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="portfolio-layout-wrapper container">
+      <!-- Left Column: Sticky Sidebar -->
+      <aside class="portfolio-sidebar">
+        <div class="sidebar-card-container">
+          <div class="id-card-wrapper">
+            <div class="id-card">
+              <div class="id-card-lanyard-slot"></div>
+              <div class="id-card-hologram"></div>
+              <div class="id-card-shine"></div>
+              
+              <div class="id-card-header">
+                <span id="hero-card-label">SYSTEM ACCESS BADGE</span>
+              </div>
+
+              <div class="id-card-body">
+                <div class="id-card-photo-area">
+                  <div class="id-card-photo-border">
+                    <img id="owner-image" src="/images/owner.jpg" alt="Gaurav Nikam — Data Analyst & AI/ML Engineer">
+                  </div>
+                  <div class="id-card-status-badge">
+                    <span class="status-dot"></span>
+                    <span id="hero-card-copy">Open to opportunities</span>
+                  </div>
+                </div>
+
+                <div class="id-card-info-area">
+                  <h2 id="hero-card-name">Gaurav Nikam</h2>
+                  <p id="hero-card-title" class="profile-subtitle">Data Analyst | AI/ML Engineer</p>
+                </div>
+
+                <div class="id-card-details">
+                  <div class="id-card-detail-item" id="id-card-location-row">
+                    <span class="icon">
+                      <svg class="logo-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </span>
+                    <span id="hero-card-location">Pune, Maharashtra, India</span>
+                  </div>
+                  <div class="id-card-detail-item" id="id-card-email-row">
+                    <span class="icon">
+                      <svg class="logo-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </span>
+                    <span id="hero-card-email">gauravnikam072@gmail.com</span>
+                  </div>
+                  <div class="id-card-detail-item" id="id-card-phone-row">
+                    <span class="icon">
+                      <svg class="logo-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </span>
+                    <span id="hero-card-phone">+91 8669212675</span>
+                  </div>
+                </div>
+
+                <div class="id-card-socials" id="id-card-socials-row">
+                  <!-- Dynamically populated -->
+                </div>
+              </div><!-- /id-card-body -->
+
+            </div><!-- /id-card -->
+
+            <!-- Section Navigation Links — attached to right edge of ID card, vertically centered -->
+            <nav class="external-nav-links" aria-label="Section navigation">
+              <a href="#about" class="id-card-nav-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                <span>About Me</span>
+              </a>
+              <a href="#projects" class="id-card-nav-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                <span>Projects</span>
+              </a>
+              <a href="#skills" class="id-card-nav-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                <span>Skills</span>
+              </a>
+              <a href="#work" class="id-card-nav-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                <span>Experience</span>
+              </a>
+              <a href="#education" class="id-card-nav-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                <span>Education</span>
+              </a>
+              <a href="#certifications" class="id-card-nav-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                <span>Certifications</span>
+              </a>
+              <a href="#contact" class="id-card-nav-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <span>Contact</span>
+              </a>
+            </nav>
+          </div><!-- /id-card-wrapper -->
+        </div><!-- /sidebar-card-container -->
+      </aside>
+
+
+      <!-- Right Column: Scrollable Content -->
+      <div class="portfolio-main">
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" class="section container">
+      <div class="section-intro reveal">
+        <span class="section-eyebrow">Who I Am</span>
+        <h2>About <span class="gradient-text">Me</span></h2>
+        <p>MCA student and aspiring Data Analyst focused on turning complex datasets into interactive dashboards and predictive machine learning models.</p>
+      </div>
+      <div class="card-grid reveal">
+        <div class="card glass hover-lift">
+          <span class="card-icon blue-glow">📊</span>
+          <h3>Data Analyst</h3>
+          <p>Experienced in building interactive BI dashboards using Power BI and Tableau. Skilled in SQL querying, data cleaning, and KPI modeling to drive actionable business decisions.</p>
+        </div>
+        <div class="card glass hover-lift">
+          <span class="card-icon purple-glow">🤖</span>
+          <h3>ML Practitioner</h3>
+          <p>Proficient in building and deploying machine learning pipelines. Practical experience with Scikit-learn, XGBoost, feature engineering, and evaluating model accuracy.</p>
+        </div>
+        <div class="card glass hover-lift">
+          <span class="card-icon green-glow">🐍</span>
+          <h3>Python Developer</h3>
+          <p>Strong command over Pandas, NumPy, and Streamlit for web app development. Experience writing robust scripts for ETL workflows and automated data processing.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section id="projects" class="section container">
+      <div class="section-intro reveal">
+        <span class="section-eyebrow">My Work</span>
+        <h2>Featured <span class="gradient-text">Projects</span></h2>
+        <p>Real datasets, real business questions — from sales forecasting to churn risk to live ML web apps.</p>
+      </div>
+      <div id="project-filters" class="filter-row"></div>
+      <div id="projects-grid" class="projects-grid">
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section id="skills" class="section container">
+      <div class="section-intro reveal">
+        <span class="section-eyebrow">My Engine Room</span>
+        <h2>Tech Stack &amp; <span class="gradient-text">Expertise</span></h2>
+        <p>The frameworks, libraries, and BI tools behind every dashboard and model I ship.</p>
+      </div>
+      <div id="skills-grid" class="skills-grid reveal">
+        <!-- Populated dynamically by main.js in a flat layout -->
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+      </div>
+    </section>
+
+    <section id="work" class="section container">
+      <div class="section-intro reveal">
+        <span class="section-eyebrow">Career Path</span>
+        <h2>Work <span class="gradient-text">Experience</span></h2>
+        <p>Roles and responsibilities that shaped my data and analytics expertise.</p>
+      </div>
+      <div id="work-timeline" class="timeline">
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+      </div>
+    </section>
+
+    <!-- ============ EDUCATION ============ -->
+    <section id="education" class="section container">
+      <div class="section-intro reveal">
+        <span class="section-eyebrow">My Path</span>
+        <h2>Education &amp; <span class="gradient-text">Journey</span></h2>
+        <p>From BBA to MCA — building the analytical foundation behind every project.</p>
+      </div>
+      <div id="education-timeline" class="timeline"></div>
+    </section>
+
+    <!-- ============ CERTIFICATIONS ============ -->
+    <section id="certifications" class="section container">
+      <div class="section-intro reveal">
+        <span class="section-eyebrow">Credentials</span>
+        <h2>Certifications &amp; <span class="gradient-text">Courses</span></h2>
+        <p>Continuous learning through professional certifications and online programs.</p>
+      </div>
+      <div id="cert-grid" class="cert-grid"></div>
+    </section>
+
+    <!-- ============ TESTIMONIALS ============ -->
+    <section id="testimonials" class="section container">
+      <div class="section-intro reveal">
+        <span class="section-eyebrow">Testimonials</span>
+        <h2>Professional <span class="gradient-text">Endorsements</span></h2>
+        <p>What mentors and collaborators say about working with me.</p>
+      </div>
+      <div id="testimonial-grid" class="testimonial-grid"></div>
+    </section>
+
+    <!-- ============ HIRE ME ============ -->
+    <section id="hire-me" class="section container">
+      <div class="hire-me-card reveal">
+        <div class="hire-me-content">
+          <div class="status-badge" style="margin-bottom: 1rem; display: inline-flex;"><span class="dot pulse"></span> Available Now</div>
+          <h2>Looking for a <span class="gradient-text">Data Professional?</span></h2>
+          <p>I am currently available for <strong>Full-Time</strong>, <strong>Internship</strong>, and <strong>Freelance</strong> opportunities. Let's discuss how I can bring data-driven value to your team.</p>
+          <div class="hire-perks">
+            <span>✔️ End-to-end Pipelines</span>
+            <span>✔️ Actionable Dashboards</span>
+            <span>✔️ Predictive ML Models</span>
+          </div>
+        </div>
+        <div class="hire-me-actions">
+          <a href="#contact" class="btn btn-primary" style="margin-bottom: 0.5rem; width: 100%; justify-content:center;">Message Me</a>
+          <a href="/api/resume" class="btn btn-secondary" style="width: 100%; justify-content:center;">Download Resume</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BLOG / ARTICLES ============ -->
+    <section id="blog" class="section container" style="display:none;">
+      <div class="section-intro reveal">
+        <span class="section-eyebrow">Articles</span>
+        <h2>Blog <span class="gradient-text">&amp; Insights</span></h2>
+        <p>Thoughts on data, machine learning, and the tech behind the work.</p>
+      </div>
+      <div id="blog-grid" class="projects-grid">
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" class="section container">
+      <div class="section-intro reveal">
+        <span class="section-eyebrow">Get In Touch</span>
+        <h2>Let's <span class="gradient-text">Connect</span></h2>
+        <p>Open to Data Analyst roles, internships, and collaboration. I usually reply within a day.</p>
+      </div>
+
+      <div class="contact-grid reveal">
+        <div class="contact-form-panel">
+          <form id="contact-form" novalidate>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" autocomplete="name" placeholder="John Doe" required>
+              <div class="field-error" id="name-error"></div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" autocomplete="email" placeholder="john@example.com" required>
+              <div class="field-error" id="email-error"></div>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Hi, let's collaborate on..." required maxlength="5000"></textarea>
+              <div class="char-counter" id="message-counter">0 / 5000</div>
+              <div class="field-error" id="message-error"></div>
+            </div>
+            <button type="submit" id="contact-submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send Message</button>
+          </form>
+        </div>
+        <div class="contact-info-panel">
+          <h3>Contact Details</h3>
+          <p style="margin-bottom: 1.5rem;">Feel free to reach out directly through any of these channels or by sending a message.</p>
+          <div id="contact-info-list" style="display:flex; flex-direction:column; gap:1.25rem;">
+            <!-- Populated dynamically by main.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+      </div><!-- .portfolio-main -->
+    </div><!-- .portfolio-layout-wrapper -->
+
+    <!-- ============ FOOTER ============ -->
+    <footer id="site-footer">
+      <div class="footer-bar container">
+        <div class="footer-brand">
+          <span>Gaurav</span><span class="accent">Nikam</span>
+        </div>
+        <p class="footer-copy" id="footer-copy-text">© <span id="year"></span> — Built with Flask, Python &amp; a lot of coffee.</p>
+        <div id="footer-socials-list" class="footer-socials-row"></div>
+      </div>
+    </footer>
+  </main>
+
+  <button id="back-to-top" aria-label="Back to top">↑</button>
+  <!-- Admin portal link (hidden in footer bar) -->
+  <a id="admin-portal-link" href="#" style="position:fixed;bottom:1rem;left:1rem;font-size:0.7rem;color:var(--text-muted);opacity:0.25;text-decoration:none;z-index:50;" aria-label="Admin login">🔐</a>
+
+  <!-- ============ ADMIN LOGIN MODAL ============ -->
+  <div id="admin-login-overlay" role="dialog" aria-modal="true" aria-label="Admin Login" style="display:none;">
+    <div class="admin-modal-card">
+      <button id="admin-modal-close" class="admin-modal-close" aria-label="Close">✕</button>
+      <div class="admin-modal-logo">🔐</div>
+      <h2 class="admin-modal-title">Admin Login</h2>
+      <p class="admin-modal-sub">Portfolio owner access only</p>
+      <form id="admin-login-form" novalidate>
+        <div class="form-group">
+          <label for="admin-username">Username</label>
+          <input type="text" id="admin-username" value="admin" readonly style="opacity:0.6;cursor:not-allowed;">
+        </div>
+        <div class="form-group">
+          <label for="admin-password">Password</label>
+          <input type="password" id="admin-password" placeholder="Enter admin password" autocomplete="current-password" required>
+          <div id="admin-login-error" class="field-error"></div>
+        </div>
+        <button type="submit" id="admin-login-btn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem;">Login to Dashboard</button>
+      </form>
+    </div>
+  </div>
+
+  <noscript><div style="text-align:center;padding:2rem;font-family:sans-serif;background:#131826;color:#e7e9ee;">⚠️ This portfolio requires JavaScript to display content. Please enable JavaScript in your browser.</div></noscript>
+  <script src="/js/main.js"></script>
+</body>
+</html>
