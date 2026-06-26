@@ -9,8 +9,8 @@ Minimal README with local development and Vercel deployment instructions.
 
 ```bash
 # If you do not already have a remote repo, use the local folder directly:
-cd path\to\ai-portfolio
-cd C:\Users\gaura\Downloads\ai-portfolio\ai-portfolio
+cd path\to\portfolio
+cd C:\Users\gaura\Downloads\portfolio\portfolio
 python -m venv venv
 # Windows
 venv\Scripts\activate
@@ -21,7 +21,7 @@ source venv/bin/activate
 - Install dependencies and run from the repository root:
 
 ```bash
-cd C:\Users\gaura\Downloads\ai-portfolio\ai-portfolio
+cd C:\Users\gaura\Downloads\portfolio\portfolio
 python -m venv venv
 venv\Scripts\activate
 pip install -r backend/requirements.txt

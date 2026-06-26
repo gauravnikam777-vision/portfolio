@@ -50,7 +50,7 @@ portfolio/
 ### 2. Clone & set up
 ```bash
 git clone <your-repo-url>
-cd ai-portfolio
+cd portfolio
 
 python -m venv venv
 # Windows
@@ -156,7 +156,7 @@ sudo usermod -aG docker $USER && newgrp docker
 
 # 3. Clone project
 git clone <your-repo-url>
-cd ai-portfolio
+cd portfolio
 
 # 4. Set production .env
 copy .env.example .env
