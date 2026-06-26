@@ -29,9 +29,14 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'change-this-in-production')
 
     # ---- Database ----
+    _default_db = 'sqlite:///' + os.path.join(BASE_DIR, 'portfolio.db')
+    if os.getenv('VERCEL'):
+        # On Vercel, the filesystem is read-only except for /tmp
+        _default_db = 'sqlite:////tmp/portfolio.db'
+
     SQLALCHEMY_DATABASE_URI = _env(
         os.getenv('DATABASE_URL'),
-        'sqlite:///' + os.path.join(BASE_DIR, 'portfolio.db')
+        _default_db
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ENGINE_OPTIONS = {
