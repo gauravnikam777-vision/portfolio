@@ -118,11 +118,23 @@ def create_app():
     @app.route('/api/health')
     def health():
         db_ok = True
+        db_error = None
         try:
             db.session.execute(db.text('SELECT 1'))
         except Exception as e:
             db_ok = False
+            db_error = str(e)
             logger.error(f"DB health check failed: {e}")
+
+        # Debug info for Vercel troubleshooting
+        debug = {
+            'db_uri': str(app.config.get('SQLALCHEMY_DATABASE_URI', ''))[:80],
+            'is_vercel': bool(os.getenv('VERCEL')),
+            'tmp_exists': os.path.isdir('/tmp') if os.name != 'nt' else 'N/A (Windows)',
+            'engine_options': str(app.config.get('SQLALCHEMY_ENGINE_OPTIONS', {})),
+        }
+        if db_error:
+            debug['db_error'] = db_error[:200]
 
         return jsonify({
             'status': 'ok' if db_ok else 'degraded',
@@ -130,6 +142,7 @@ def create_app():
             'features': {
                 'email_enabled': app.config['EMAIL_ENABLED'],
             },
+            'debug': debug,
             'timestamp': datetime.now(timezone.utc).isoformat() + 'Z',
             'version': '2.0.0',
         })
