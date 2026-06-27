@@ -43,7 +43,32 @@ def create_app():
     # Import models so Flask-Migrate can see them.
     import models  # noqa: F401
 
-    with app.app_context():
+    # ── Fallback profile data (used when DB is unreachable) ─────────
+    FALLBACK_PROFILE = {
+        'id': 0,
+        'full_name': 'Gaurav Nikam',
+        'job_title': 'Data Analyst | AI/ML Engineer',
+        'tagline': 'Turning raw data into decisions that matter',
+        'bio': ('Aspiring Data Analyst and MCA student with hands-on experience in SQL, Python, Power BI, '
+                'Tableau, and machine learning — building end-to-end analytics that drive real business outcomes.'),
+        'location': 'Pune, Maharashtra, India',
+        'email': 'gauravnikam072@gmail.com',
+        'phone': '+91 8669212675',
+        'github_url': 'https://github.com/gauravnikam777-vision',
+        'linkedin_url': 'https://www.linkedin.com/in/gaurav-nikam-44842a345',
+        'twitter_url': '',
+        'website_url': '',
+        'telegram_url': 'https://t.me/gauravnikam',
+        'whatsapp_url': 'https://wa.me/918669212675',
+        'instagram_url': 'https://instagram.com/gauravnikam89',
+        'facebook_url': 'https://facebook.com/gauravnikam',
+        'kaggle_url': 'https://kaggle.com/gauravnikam',
+        'leetcode_url': 'https://leetcode.com/u/gauravnikam777-vision/',
+        'availability_status': 'Open to opportunities',
+    }
+
+    def _ensure_db():
+        """Ensure database tables exist and are seeded. Safe to call multiple times."""
         try:
             db.create_all()
             from models import Project
@@ -65,25 +90,23 @@ def create_app():
                     db.session.add(Testimonial(**t))
                 
                 if not SiteProfile.query.first():
-                    db.session.add(SiteProfile(
-                        full_name='Gaurav Nikam',
-                        job_title='Data Analyst | AI/ML Engineer',
-                        email='gauravnikam072@gmail.com',
-                        phone='+91 8669212675',
-                        location='Pune, Maharashtra, India',
-                        bio=('Aspiring Data Analyst and MCA student with hands-on experience in SQL, Python, Power BI, '
-                             'Tableau, and machine learning — building end-to-end analytics that drive real business outcomes.'),
-                        tagline='Turning raw data into decisions that matter',
-                        availability_status='Open to opportunities',
-                        github_url='https://github.com/gauravnikam777-vision',
-                        linkedin_url='https://www.linkedin.com/in/gaurav-nikam-44842a345'
-                    ))
+                    db.session.add(SiteProfile(**{k: v for k, v in FALLBACK_PROFILE.items() if k != 'id'}))
                 
                 db.session.commit()
                 logger.info("Auto-seed completed successfully.")
         except Exception as ex:
             db.session.rollback()
             logger.error(f"Auto-seed / db creation failed: {ex}")
+
+    with app.app_context():
+        _ensure_db()
+
+    # On Vercel, the DB might not survive between invocations.
+    # Ensure it's initialized on every request.
+    @app.before_request
+    def ensure_db_before_request():
+        if os.getenv('VERCEL'):
+            _ensure_db()
 
     from utils import cleaner
     from email_service import EmailService
@@ -153,36 +176,51 @@ def create_app():
     # ------------------------------------------------------------------
     @app.route('/api/projects')
     def get_projects():
-        from models import Project
-        projects = Project.query.filter_by(featured=True).order_by(Project.display_order, Project.id).all()
-        return jsonify([p.to_dict() for p in projects])
+        try:
+            from models import Project
+            projects = Project.query.filter_by(featured=True).order_by(Project.display_order, Project.id).all()
+            return jsonify([p.to_dict() for p in projects])
+        except Exception:
+            return jsonify([])
 
     @app.route('/api/skills')
     def get_skills():
-        from models import Skill
-        skills = Skill.query.order_by(Skill.category, Skill.display_order).all()
-        grouped = {}
-        for s in skills:
-            grouped.setdefault(s.category, []).append(s.to_dict())
-        return jsonify(grouped)
+        try:
+            from models import Skill
+            skills = Skill.query.order_by(Skill.category, Skill.display_order).all()
+            grouped = {}
+            for s in skills:
+                grouped.setdefault(s.category, []).append(s.to_dict())
+            return jsonify(grouped)
+        except Exception:
+            return jsonify({})
 
     @app.route('/api/education')
     def get_education():
-        from models import Education
-        items = Education.query.order_by(Education.display_order).all()
-        return jsonify([e.to_dict() for e in items])
+        try:
+            from models import Education
+            items = Education.query.order_by(Education.display_order).all()
+            return jsonify([e.to_dict() for e in items])
+        except Exception:
+            return jsonify([])
 
     @app.route('/api/certifications')
     def get_certifications():
-        from models import Certification
-        items = Certification.query.order_by(Certification.display_order).all()
-        return jsonify([c.to_dict() for c in items])
+        try:
+            from models import Certification
+            items = Certification.query.order_by(Certification.display_order).all()
+            return jsonify([c.to_dict() for c in items])
+        except Exception:
+            return jsonify([])
 
     @app.route('/api/testimonials')
     def get_testimonials():
-        from models import Testimonial
-        items = Testimonial.query.filter_by(approved=True).order_by(Testimonial.display_order).all()
-        return jsonify([t.to_dict() for t in items])
+        try:
+            from models import Testimonial
+            items = Testimonial.query.filter_by(approved=True).order_by(Testimonial.display_order).all()
+            return jsonify([t.to_dict() for t in items])
+        except Exception:
+            return jsonify([])
 
     @app.route('/api/resume')
     def download_resume():
@@ -293,9 +331,12 @@ def create_app():
     @app.route('/api/admin/contacts')
     @require_api_key
     def admin_contacts():
-        from models import Contact
-        contacts = Contact.query.order_by(Contact.created_at.desc()).limit(200).all()
-        return jsonify([c.to_dict() for c in contacts])
+        try:
+            from models import Contact
+            contacts = Contact.query.order_by(Contact.created_at.desc()).limit(200).all()
+            return jsonify([c.to_dict() for c in contacts])
+        except Exception:
+            return jsonify([])
 
     @app.route('/api/admin/contacts/<int:cid>', methods=['DELETE'])
     @require_api_key
@@ -575,15 +616,21 @@ def create_app():
     # ── Public read: Experience, Blog, Profile ─────────────
     @app.route('/api/experience')
     def get_experience():
-        from models import Experience
-        items = Experience.query.order_by(Experience.display_order, Experience.id).all()
-        return jsonify([e.to_dict() for e in items])
+        try:
+            from models import Experience
+            items = Experience.query.order_by(Experience.display_order, Experience.id).all()
+            return jsonify([e.to_dict() for e in items])
+        except Exception:
+            return jsonify([])
 
     @app.route('/api/blog')
     def get_blog():
-        from models import BlogPost
-        posts = BlogPost.query.filter_by(published=True).order_by(BlogPost.display_order, BlogPost.id).all()
-        return jsonify([p.to_dict() for p in posts])
+        try:
+            from models import BlogPost
+            posts = BlogPost.query.filter_by(published=True).order_by(BlogPost.display_order, BlogPost.id).all()
+            return jsonify([p.to_dict() for p in posts])
+        except Exception:
+            return jsonify([])
 
     @app.route('/api/blog/<slug>')
     def get_blog_post(slug):
@@ -593,13 +640,17 @@ def create_app():
 
     @app.route('/api/profile')
     def get_profile():
-        from models import SiteProfile
-        profile = SiteProfile.query.first()
-        if not profile:
-            profile = SiteProfile()
-            db.session.add(profile)
-            db.session.commit()
-        return jsonify(profile.to_dict())
+        try:
+            from models import SiteProfile
+            profile = SiteProfile.query.first()
+            if not profile:
+                profile = SiteProfile()
+                db.session.add(profile)
+                db.session.commit()
+            return jsonify(profile.to_dict())
+        except Exception:
+            logger.warning('DB unreachable for /api/profile, returning fallback')
+            return jsonify(FALLBACK_PROFILE)
 
     # ── Experience CRUD ────────────────────────────────────
     @app.route('/api/admin/experience', methods=['POST'])
