@@ -39,10 +39,16 @@ class Config:
         _default_db
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_ENGINE_OPTIONS = {
-        'pool_pre_ping': True,
-        'pool_recycle': 280,
-    }
+
+    # Pool options — only useful for connection-based DBs (PostgreSQL, MySQL).
+    # SQLite (especially on Vercel's ephemeral /tmp) doesn't benefit from these.
+    if os.getenv('DATABASE_URL') and 'sqlite' not in os.getenv('DATABASE_URL', ''):
+        SQLALCHEMY_ENGINE_OPTIONS = {
+            'pool_pre_ping': True,
+            'pool_recycle': 280,
+        }
+    else:
+        SQLALCHEMY_ENGINE_OPTIONS = {}
 
     # ---- API / Security ----
     ADMIN_API_KEY = os.getenv('ADMIN_API_KEY', 'change-this-admin-key')

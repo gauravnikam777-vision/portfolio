@@ -50,7 +50,7 @@ def create_app():
             if not Project.query.first():
                 logger.info("Database is empty. Running auto-seed...")
                 from seed_db import PROJECTS, SKILLS, EDUCATION, CERTIFICATIONS, TESTIMONIALS
-                from models import Skill, Education, Certification, Testimonial, Profile, SiteSettings
+                from models import Skill, Education, Certification, Testimonial, SiteProfile
                 
                 for p in PROJECTS:
                     db.session.add(Project(**p))
@@ -64,9 +64,8 @@ def create_app():
                 for t in TESTIMONIALS:
                     db.session.add(Testimonial(**t))
                 
-                from models import Profile
-                if not Profile.query.first():
-                    db.session.add(Profile(
+                if not SiteProfile.query.first():
+                    db.session.add(SiteProfile(
                         full_name='Gaurav Nikam',
                         job_title='Data Analyst | AI/ML Engineer',
                         email='gauravnikam072@gmail.com',
@@ -79,8 +78,6 @@ def create_app():
                         github_url='https://github.com/gauravnikam777-vision',
                         linkedin_url='https://www.linkedin.com/in/gaurav-nikam-44842a345'
                     ))
-                if not SiteSettings.query.first():
-                    db.session.add(SiteSettings())
                 
                 db.session.commit()
                 logger.info("Auto-seed completed successfully.")
