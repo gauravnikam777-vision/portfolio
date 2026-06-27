@@ -34,10 +34,15 @@ class Config:
         # On Vercel, the filesystem is read-only except for /tmp
         _default_db = 'sqlite:////tmp/portfolio.db'
 
-    SQLALCHEMY_DATABASE_URI = _env(
-        os.getenv('DATABASE_URL'),
-        _default_db
-    )
+    _db_url = _env(os.getenv('DATABASE_URL'))
+    if _db_url:
+        # If running on Vercel and it's a SQLite URL, force it to /tmp to avoid read-only filesystem errors.
+        if os.getenv('VERCEL') and _db_url.startswith('sqlite:'):
+            SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/portfolio.db'
+        else:
+            SQLALCHEMY_DATABASE_URI = _db_url
+    else:
+        SQLALCHEMY_DATABASE_URI = _default_db
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Pool options — only useful for connection-based DBs (PostgreSQL, MySQL).

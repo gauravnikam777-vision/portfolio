@@ -13,6 +13,7 @@ import io
 import logging
 import uuid
 from datetime import datetime, timedelta, timezone
+import threading
 
 from flask import Flask, request, jsonify, send_from_directory, abort
 from flask_cors import CORS
@@ -24,6 +25,10 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(na
 logger = logging.getLogger(__name__)
 
 STATIC_FOLDER = os.path.join(os.path.dirname(__file__), 'static')
+
+# Thread lock and initialization tracking to prevent SQLite concurrency issues on Vercel
+db_init_lock = threading.Lock()
+db_initialized = False
 
 
 def create_app():
@@ -69,34 +74,56 @@ def create_app():
 
     def _ensure_db():
         """Ensure database tables exist and are seeded. Safe to call multiple times."""
-        try:
-            db.create_all()
-            from models import Project
-            if not Project.query.first():
-                logger.info("Database is empty. Running auto-seed...")
-                from seed_db import PROJECTS, SKILLS, EDUCATION, CERTIFICATIONS, TESTIMONIALS
-                from models import Skill, Education, Certification, Testimonial, SiteProfile
-                
-                for p in PROJECTS:
-                    db.session.add(Project(**p))
-                for category, name, level, proficiency, icon in SKILLS:
-                    db.session.add(Skill(category=category, name=name, level=level,
-                                          proficiency=proficiency, icon=icon))
-                for e in EDUCATION:
-                    db.session.add(Education(**e))
-                for c in CERTIFICATIONS:
-                    db.session.add(Certification(**c))
-                for t in TESTIMONIALS:
-                    db.session.add(Testimonial(**t))
-                
-                if not SiteProfile.query.first():
-                    db.session.add(SiteProfile(**{k: v for k, v in FALLBACK_PROFILE.items() if k != 'id'}))
-                
-                db.session.commit()
-                logger.info("Auto-seed completed successfully.")
-        except Exception as ex:
-            db.session.rollback()
-            logger.error(f"Auto-seed / db creation failed: {ex}")
+        global db_initialized
+        if db_initialized:
+            return
+
+        db_uri = app.config.get('SQLALCHEMY_DATABASE_URI', '')
+        if db_uri.startswith('sqlite:///'):
+            db_path = db_uri.replace('sqlite:///', '')
+            # If the database file is non-empty, we can assume it's already initialized and seeded.
+            if os.path.exists(db_path) and os.path.getsize(db_path) > 0:
+                db_initialized = True
+                return
+
+        with db_init_lock:
+            if db_initialized:
+                return
+            if db_uri.startswith('sqlite:///'):
+                db_path = db_uri.replace('sqlite:///', '')
+                if os.path.exists(db_path) and os.path.getsize(db_path) > 0:
+                    db_initialized = True
+                    return
+
+            try:
+                db.create_all()
+                from models import Project
+                if not Project.query.first():
+                    logger.info("Database is empty. Running auto-seed...")
+                    from seed_db import PROJECTS, SKILLS, EDUCATION, CERTIFICATIONS, TESTIMONIALS
+                    from models import Skill, Education, Certification, Testimonial, SiteProfile
+                    
+                    for p in PROJECTS:
+                        db.session.add(Project(**p))
+                    for category, name, level, proficiency, icon in SKILLS:
+                        db.session.add(Skill(category=category, name=name, level=level,
+                                              proficiency=proficiency, icon=icon))
+                    for e in EDUCATION:
+                        db.session.add(Education(**e))
+                    for c in CERTIFICATIONS:
+                        db.session.add(Certification(**c))
+                    for t in TESTIMONIALS:
+                        db.session.add(Testimonial(**t))
+                    
+                    if not SiteProfile.query.first():
+                        db.session.add(SiteProfile(**{k: v for k, v in FALLBACK_PROFILE.items() if k != 'id'}))
+                    
+                    db.session.commit()
+                    logger.info("Auto-seed completed successfully.")
+                db_initialized = True
+            except Exception as ex:
+                db.session.rollback()
+                logger.error(f"Auto-seed / db creation failed: {ex}")
 
     with app.app_context():
         _ensure_db()
